@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { db, storage } from 'fbase';
-import { collection, addDoc } from 'firebase/firestore';
-import { ref, uploadString, getDownloadURL } from 'firebase/storage';
+import { db, storage, collection, addDoc, ref, uploadString, getDownloadURL } from 'fbase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTimes, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 

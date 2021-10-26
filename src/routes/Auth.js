@@ -1,18 +1,18 @@
 import React from 'react';
-import { auth } from 'fbase';
-import { GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from "firebase/auth";
+import { auth, GoogleAuthProvider, GithubAuthProvider, signInWithPopup } from 'fbase';
 import AuthForm from 'components/AuthForm';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGoogle, faGithub } from '@fortawesome/free-brands-svg-icons';
 
 const Auth = () => {
     const onSocialClick = async (e) => {
-        const {target: {name}} = e;
+        const {currentTarget: {name}} = e;
         let provider;
         if (name === 'google') {
             provider = new GoogleAuthProvider();
         } else if (name === 'github') {
             provider = new GithubAuthProvider();
+            provider.addScope('repo');
         }
         await signInWithPopup(auth, provider);
     };

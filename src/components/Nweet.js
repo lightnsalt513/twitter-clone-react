@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { db, storage } from 'fbase';
-import { doc, deleteDoc, updateDoc } from 'firebase/firestore';
-import { ref, deleteObject } from 'firebase/storage';
+import { db, storage, doc, deleteDoc, updateDoc, ref, deleteObject } from 'fbase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 
