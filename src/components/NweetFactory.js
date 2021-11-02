@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { db, storage, collection, addDoc, ref, uploadString, getDownloadURL } from 'fbase';
+import { db, storage, collection, addDoc, setDoc, ref, uploadString, getDownloadURL, doc, getDoc } from 'fbase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTimes, faTimesCircle } from '@fortawesome/free-solid-svg-icons';
+import { faTimesCircle } from '@fortawesome/free-solid-svg-icons';
 
 const NweetFactory = ({ userObj }) => {
     const [nweet, setNweet] = useState('');
@@ -23,6 +23,13 @@ const NweetFactory = ({ userObj }) => {
             creatorId: userObj.uid,
             attachmentUrl: responseUrl,
         });
+        const userDocSnap = await getDoc(doc(db, 'users', userObj.uid));
+        if (!userDocSnap.exists()) {
+            await setDoc(doc(db, 'users', userObj.uid), {
+                userName: userObj.displayName,
+                userImage: userObj.user.photoURL,
+            });
+        }
         setNweet('');
         setAttachment('');       
     };
@@ -60,8 +67,8 @@ const NweetFactory = ({ userObj }) => {
                     <input onChange={onChange} value={nweet} type="text" placeholder="What's on your mind?" maxLength={120} />
                 </div>
                 <div className="nweet-maker__btns">
-                    <label htmlFor="inp_imgupload">{attachment ? 'Change Image' : 'Upload Image'}</label>
-                    <input onChange={onFileChange} id="inp_imgupload" type="file" accept="image/*" className="blind" />
+                    <label htmlFor="nweet-maker__inp-imgupload">{attachment ? 'Change Image' : 'Upload Image'}</label>
+                    <input onChange={onFileChange} id="nweet-maker__inp-imgupload" type="file" accept="image/*" className="blind" />
                     <button type="submit">Nweet</button>
                 </div>
             </div>

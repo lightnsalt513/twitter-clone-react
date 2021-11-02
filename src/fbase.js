@@ -5,7 +5,8 @@ import {
   GithubAuthProvider, 
   signInWithPopup, 
   createUserWithEmailAndPassword, 
-  signInWithEmailAndPassword } from "firebase/auth";
+  signInWithEmailAndPassword,
+  updateProfile } from "firebase/auth";
 import {
   getFirestore, 
   collection, 
@@ -13,6 +14,8 @@ import {
   query, 
   orderBy, 
   doc,
+  getDoc,
+  setDoc,
   addDoc,
   deleteDoc, 
   updateDoc } from "firebase/firestore";
@@ -48,6 +51,7 @@ export {
   signInWithPopup,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  updateProfile,
 }
 
 export {
@@ -56,6 +60,8 @@ export {
   query, 
   orderBy,
   doc,
+  getDoc,
+  setDoc,
   addDoc,
   deleteDoc, 
   updateDoc

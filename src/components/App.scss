@@ -46,7 +46,7 @@ $grayColor: #a9a9a9;
     display: flex;
     align-items: center;
     justify-content: center;
-    max-width: 800px;
+    max-width: 500px;
     min-height: 100vh;
     margin: 0 auto;
 }
@@ -141,16 +141,59 @@ html.is-loggedin {
     padding-bottom: 50px;
     &__item {
         position: relative;
-        &-content {
-            display: flex;
-            justify-content: space-between;
+        &-box {
             padding: 20px;
             border-radius: 1rem;
             background: #f1f1f1;
         }
+        &-profile {
+            display: flex;
+            align-items: center;
+            &-img {
+                overflow: hidden;
+                position: relative;
+                width: 50px;
+                height: 50px;
+                border: 1px solid $darkColor;
+                border-radius: 50%;
+                img {
+                    position: absolute;
+                    top: -100%;
+                    bottom: -100%;
+                    left: -100%;
+                    right: -100%;
+                    width: 100%;
+                    height: auto;
+                    margin: auto;
+                }
+                svg {
+                    position: absolute;
+                    top: -100%;
+                    bottom: -100%;
+                    left: -100%;
+                    right: -100%;
+                    width: 50% !important;
+                    height: auto;
+                    margin: auto;
+                }
+            }
+            &-name {
+                padding-left: 12px;
+            }
+            &-date {
+                padding-left: 12px;
+                color: $grayColor;
+                font-size: 0.8rem;
+            }
+        }
+        &-content {
+            display: flex;
+            justify-content: space-between;
+            padding-top: 20px;
+        }
         &-img {
-            height: 100px;
-            width: auto;
+            height: auto;
+            width: 50%;
         }
         &-btns {
             position: absolute;
@@ -170,7 +213,6 @@ html.is-loggedin {
     &__edit {
         display: flex;
         position: relative;
-        margin-bottom: 50px;
         input[type="text"] {
             @include inpDefault;
         }
@@ -287,20 +329,89 @@ html.is-loggedin {
 .profile {
     &__info {
         color: #fff;
+        h2 {
+            text-align: center;
+        }
+        input {
+            text-align: center;
+        }
     }
-    &__form {
-        display: flex;
-        justify-content: space-between;
-        margin-top: 40px;
-        &-input {
+    &__img {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 30px;
+        text-align: center;
+        font-size: 0;
+        &-display {
+            overflow: hidden;
+            position: relative;
+            height: 100%;
+            border-radius: 50%;
+            background: #fff;
+            img, svg {
+                position: absolute;
+                top: -100%;
+                left: -100%;
+                right: -100%;
+                bottom: -100%;
+                height: auto;
+                margin: auto;
+            }
+            img {
+                width: 100%;
+            }
+            svg {
+                width: 50% !important;
+            }
+        }
+        &-edit {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            label {
+                display: block;
+                height: 100%;
+                cursor: pointer;
+            }
+            button {
+                overflow: hidden;
+                position: absolute;
+                top: 0;
+                right: 0;
+                display: block;
+                width: 40px;
+                height: 40px;
+                margin: -10px -10px 0 0;
+                border: 5px solid $darkColor;
+                border-radius: 50%;
+                svg {
+                    width: 50% !important;
+                    height: auto;
+                }
+            }
+        }
+    }
+    &__input {
+        &-name {
             @include inpDefault;
-            flex: 1;
-        }
-        &-submit {
-            @include btnDefault;
-            background: $secondaryColor;
         }
     }
+    // &__form {
+    //     display: flex;
+    //     justify-content: space-between;
+    //     margin-top: 40px;
+    //     &-input {
+    //         @include inpDefault;
+    //         flex: 1;
+    //     }
+    //     &-submit {
+    //         @include btnDefault;
+    //         background: $secondaryColor;
+    //     }
+    // }
     &__control {
         margin-top: 80px;
         text-align: center;
