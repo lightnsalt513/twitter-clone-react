@@ -25,7 +25,7 @@ const Nweet = ({ nweetObj, isOwner }) => {
         const confirmed = window.confirm("Are you sure you want to delete this nweet?");
         if (confirmed) {
             deleteDoc(doc(db, 'nweets', nweetObj.id));
-            if (nweetObj.attachmentUrl !== "") {
+            if (nweetObj.attachmentUrl !== '') {
                 deleteObject(ref(storage, nweetObj.attachmentUrl));
             }
         }

@@ -1,0 +1,14 @@
+.approuter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 500px;
+    min-height: 100vh;
+    margin: 0 auto;
+}
+
+html.is-loggedin {
+    .approuter {
+        display: block;
+    }
+}

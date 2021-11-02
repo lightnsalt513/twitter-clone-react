@@ -1,0 +1,96 @@
+.nweet-maker {
+    position: relative;
+    margin-bottom: 50px;
+    &__area {
+        display: flex;
+    }
+    &__content {
+        display: flex;
+        flex: 1;
+        justify-content: space-between;
+        border-bottom: 3px solid #fff;
+        input {
+            display: block;
+            width: 100%;
+            padding: 20px;
+            border: none;
+            background: none;
+            color: #fff;
+        }
+    }
+    &__btns {
+        display: flex;
+        margin-left: 10px;
+        label,
+        button {
+            @include btnDefault;
+            cursor: pointer;
+            min-height: 61px;
+        }
+        label {
+            display: flex;
+            align-items: center;
+            background: $secondaryLightColor;
+        }
+        button {
+            background: $secondaryColor;
+        }
+    }
+    &__imgs {
+        margin: 16px 20px 0;
+        p {
+            color: $grayColor;
+        }
+    }
+    &__img {
+        display: inline-block;
+        position: relative;
+        margin-top: 16px;
+        img {
+            height: 100px;
+            width: auto;
+            background: #fff;
+        }
+        button {
+            position: absolute;
+            bottom: 100%;
+            left: 100%;
+            margin: 0 0 -13px 2px;
+            border-radius: 50%;
+            border: none;
+            background: none;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .nweet-maker {
+        padding-bottom: 30px;
+        &:after {
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 1px;
+            margin: 0 auto;
+            background: $grayColor;
+            width: 80%;
+            content: '';
+        }
+        &__area {
+            display: block;
+        }
+        &__btns {
+            display: flex;
+            margin-left: 0;
+            padding: 20px 0;
+            label, button {
+                flex: 1;
+                justify-content: center;
+            }
+        }
+        &__imgs {
+            margin: 0;
+        }
+    }
+}

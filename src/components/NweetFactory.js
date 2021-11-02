@@ -11,8 +11,8 @@ const NweetFactory = ({ userObj }) => {
     const onSubmit = async (e) => {
         e.preventDefault();
 
-        let responseUrl = "";
-        if (attachment !== "") {
+        let responseUrl = '';
+        if (attachment !== '') {
             const fileRef = ref(storage, `${userObj.uid}/${uuidv4()}`);
             await uploadString(fileRef, attachment, 'data_url');
             responseUrl = await getDownloadURL(fileRef);

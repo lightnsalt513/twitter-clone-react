@@ -1,0 +1,32 @@
+.authform {
+    text-align: center;
+    input {
+        display: block;
+        width: 100%;
+        margin-top: 1.25rem;
+        box-sizing: border-box;
+        &:first-child {
+            margin-top: 0;
+        }
+        &:not([type="submit"]) {
+            padding: 0.5rem 1rem;
+        }
+        &[type="submit"] {
+            @include btnLogin;
+            background-color: $primaryColor;
+            color: #fff;
+            font-weight: bold;
+        }
+    }
+    &__togglebtn {
+        margin-top: 1rem;
+        background: none;
+        border: none;
+        color: #fff;
+        text-decoration: underline;
+    }
+    &__error {
+        margin-top: 0.8rem;
+        color: #e40202;
+    }
+}

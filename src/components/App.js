@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import AppRouter from 'components/Router';
 import { auth, db, doc, setDoc } from 'fbase';
-import 'components/App.scss';
 
 const htmlElem = document.documentElement;
 
