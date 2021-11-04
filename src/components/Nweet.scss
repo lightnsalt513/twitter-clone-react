@@ -69,9 +69,24 @@
                 border-radius: 50%;
             }
         }
-        &-likes {
-            svg {
-                color: $primaryColor;
+        &-menu {
+            &-comments {
+                &.is-active {
+
+                }
+            }
+            &-likes {
+                &.is-active {
+                    svg {
+                        color: $primaryColor;
+                    }
+                }
+            }
+        }
+        &-comments {
+            display: none;
+            &.is-open {
+                display: block;
             }
         }
     }

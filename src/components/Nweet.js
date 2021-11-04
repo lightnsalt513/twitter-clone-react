@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { db, storage, doc, deleteDoc, updateDoc, ref, deleteObject, getDoc, query, collection, getDocs, addDoc, setDoc } from 'fbase';
+import { db, storage, doc, deleteDoc, updateDoc, ref, deleteObject, getDoc, query, collection, getDocs, addDoc, setDoc, orderBy, onSnapshot } from 'fbase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComment, faEdit, faThumbsUp, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import Comment from 'components/Comment';
+import CommentFactory from 'components/CommentFactory';
 
 const Nweet = ({ nweetObj, userId }) => {
     const [editing, setEditing] = useState(false);
@@ -9,10 +11,30 @@ const Nweet = ({ nweetObj, userId }) => {
     const [user, setUser] = useState({ userName:'', userImage:'' });
     const [isOwner, setisOwner] = useState(false)
     const [likesCount, setLikesCount] = useState(0);
-    const [ownerLike, setOwnerLike] = useState(false)
+    const [ownerLike, setOwnerLike] = useState(false);
+    const [comments, setComments] = useState([]);
+    const [commentsCount, setCommentsCount] = useState(0);
+    const [isCommentsActive, setIsCommentsActive] = useState(false);
+    const [commentsInitialized, setCommentsInitialized] = useState(false);
 
     useEffect(() => {   
-        if (nweetObj.creatorId === userId) setisOwner(true); 
+        if (nweetObj.creatorId === userId) setisOwner(true);
+
+        const commentsRef = query(collection(db, `nweets/${nweetObj.id}/comments`), orderBy("createdAt", "desc"));
+        const unsubscribe = onSnapshot(commentsRef, snapshot => {
+            let commentArray = [];
+            let commentCount = 0;
+            snapshot.forEach(doc => {
+                const commentObj = {
+                    ...doc.data(),
+                    id: doc.id
+                }
+                commentArray.push(commentObj);
+                commentCount++;
+            });
+            setComments(commentArray);
+            setCommentsCount(commentCount);
+        });
 
         (async () => {
             const userDocSnap = await getDoc(doc(db, 'users', nweetObj.creatorId));
@@ -37,7 +59,11 @@ const Nweet = ({ nweetObj, userId }) => {
             }
             setLikesCount(count);
         })();
-    }, [])
+
+        return () => {
+            unsubscribe();
+        };
+    }, []);
     
     const onDeleteClick = () => {
         const confirmed = window.confirm("Are you sure you want to delete this nweet?");
@@ -71,6 +97,11 @@ const Nweet = ({ nweetObj, userId }) => {
             setOwnerLike(true);
             setLikesCount(prev => prev + 1);
         }
+    };
+
+    const onCommentClick = () => {
+        if (!commentsInitialized) setCommentsInitialized(true);
+        setIsCommentsActive(!isCommentsActive);
     };
 
     const onSubmit = async (e) => {
@@ -107,9 +138,9 @@ const Nweet = ({ nweetObj, userId }) => {
                             <p className="nweet__item-text">{nweetObj.text}</p>
                             {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} className="nweet__item-img" alt="" />}
                         </div>
-                        <div className="nweet__item-feat">
-                            <button className="nweet__item-comment"><FontAwesomeIcon icon={faComment} /><span className="blind">Comments</span></button>
-                            <button className={"nweet__item-likes" + (ownerLike && " is-active")} onClick={onLikeClick}><FontAwesomeIcon icon={faThumbsUp} />{likesCount}<span className="blind">Likes</span></button>
+                        <div className="nweet__item-menu">
+                            <button className={'nweet__item-menu-comments' + (isCommentsActive ? ' is-active' : '')} onClick={onCommentClick}><FontAwesomeIcon icon={faComment} />{commentsCount}<span className="blind">Comments</span></button>
+                            <button className={'nweet__item-menu-likes' + (ownerLike ? ' is-active' : '')} onClick={onLikeClick}><FontAwesomeIcon icon={faThumbsUp} />{likesCount}<span className="blind">Likes</span></button>
                         </div>
                     </div>
                     {isOwner && (
@@ -118,6 +149,12 @@ const Nweet = ({ nweetObj, userId }) => {
                             <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrashAlt} /><span className="blind">Delete</span></button>
                         </div>
                     )}
+                    <div className={'nweet__item-comments' + (isCommentsActive ? ' is-open' : '')}>
+                        <CommentFactory nweetDbPath={`nweets/${nweetObj.id}`} userId={userId} />
+                        {commentsInitialized && comments.map(comment => {
+                            return <Comment key={comment.id} commentObj={comment} />
+                        })}
+                    </div>
                 </div>
             )}
         </div>
