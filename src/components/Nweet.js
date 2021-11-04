@@ -1,16 +1,21 @@
 import React, { useState, useEffect } from "react";
-import { db, storage, doc, deleteDoc, updateDoc, ref, deleteObject, query, getDoc} from 'fbase';
+import { db, storage, doc, deleteDoc, updateDoc, ref, deleteObject, getDoc, query, collection, getDocs, addDoc, setDoc } from 'fbase';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons';
+import { faComment, faEdit, faThumbsUp, faTrashAlt, faUser } from '@fortawesome/free-solid-svg-icons';
 
-const Nweet = ({ nweetObj, isOwner }) => {
+const Nweet = ({ nweetObj, userId }) => {
     const [editing, setEditing] = useState(false);
     const [newNweet, setNewNweet] = useState(nweetObj.text);
-    const [user, setUser] = useState({ userName:'', userImage:'' })
+    const [user, setUser] = useState({ userName:'', userImage:'' });
+    const [isOwner, setisOwner] = useState(false)
+    const [likesCount, setLikesCount] = useState(0);
+    const [ownerLike, setOwnerLike] = useState(false)
 
     useEffect(() => {   
+        if (nweetObj.creatorId === userId) setisOwner(true); 
+
         (async () => {
-            const userDocSnap = await getDoc(doc(db, 'users', nweetObj.creatorId))
+            const userDocSnap = await getDoc(doc(db, 'users', nweetObj.creatorId));
             if (userDocSnap.exists()) {
                 const userData = userDocSnap.data();
                 setUser({
@@ -18,6 +23,19 @@ const Nweet = ({ nweetObj, isOwner }) => {
                     userImage: userData.userImage,
                 });
             }
+        })();
+        
+        (async () => {
+            const likeQuery = query(collection(db, `nweets/${nweetObj.id}/likes`));
+            const likeSnap = await getDocs(likeQuery);
+            let count = 0;
+            if (!likeSnap.empty) {
+                likeSnap.forEach((doc) => {
+                    if (doc.id === userId) setOwnerLike(true);
+                    count++;
+                });
+            }
+            setLikesCount(count);
         })();
     }, [])
     
@@ -41,6 +59,18 @@ const Nweet = ({ nweetObj, isOwner }) => {
     const calcDate = () => {
         const createdDate = new Date(nweetObj.createdAt).toLocaleString();
         return createdDate;
+    };
+
+    const onLikeClick = async () => {
+        if (ownerLike) {
+            await deleteDoc(doc(db, `nweets/${nweetObj.id}/likes`, userId));
+            setOwnerLike(false);
+            setLikesCount(prev => prev - 1);
+        } else {
+            await setDoc(doc(db, `nweets/${nweetObj.id}/likes`, userId), {});
+            setOwnerLike(true);
+            setLikesCount(prev => prev + 1);
+        }
     };
 
     const onSubmit = async (e) => {
@@ -76,6 +106,10 @@ const Nweet = ({ nweetObj, isOwner }) => {
                         <div className="nweet__item-content">
                             <p className="nweet__item-text">{nweetObj.text}</p>
                             {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} className="nweet__item-img" alt="" />}
+                        </div>
+                        <div className="nweet__item-feat">
+                            <button className="nweet__item-comment"><FontAwesomeIcon icon={faComment} /><span className="blind">Comments</span></button>
+                            <button className={"nweet__item-likes" + (ownerLike && " is-active")} onClick={onLikeClick}><FontAwesomeIcon icon={faThumbsUp} />{likesCount}<span className="blind">Likes</span></button>
                         </div>
                     </div>
                     {isOwner && (

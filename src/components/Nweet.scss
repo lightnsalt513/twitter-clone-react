@@ -69,6 +69,11 @@
                 border-radius: 50%;
             }
         }
+        &-likes {
+            svg {
+                color: $primaryColor;
+            }
+        }
     }
 
     &__edit {

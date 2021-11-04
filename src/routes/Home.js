@@ -29,7 +29,7 @@ const Home = ({ userObj }) => {
         <div>
             <NweetFactory userObj={userObj} />
             <div>
-                {nweets.map(nweet => <Nweet key={nweet.id} nweetObj={nweet} isOwner={nweet.creatorId === userObj.uid} />)}
+                {nweets.map(nweet => <Nweet key={nweet.id} nweetObj={nweet} userId={userObj.uid} />)}
             </div>
         </div>
     );
