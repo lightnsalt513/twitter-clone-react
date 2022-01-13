@@ -1,70 +1,62 @@
-# Getting Started with Create React App
+<br />
+<br />
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+1. [Overview](#overview)
+2. [주요 페이지 및 컴포넌트 구성](#structure)
+3. [기술 스택](#techstack)
 
-## Available Scripts
+<br />
+<br />
 
-In the project directory, you can run:
+## 1. Overview <a id="overview"></a>
+### 1) 프로젝트 개요
+* [Twitter 클론코딩 강의](https://nomadcoders.co/nwitter)를 통해 리액트을 사용한 CRUD 기능을 실습하고 Firebase를 사용하여 로그인 인증 및 리얼타임 DB 사용 경험
+> Demo URL : https://lightnsalt513.github.io/twitter-clone-react
+* 습득 개념 :    
+  * React 기본 활용방법, 컴포넌트 구성단위 및 useState, useEffect 등의 Hooks 사용
+  * React router를 사용한 라우팅
+  * Firebase의 DB, cloud storage 및 authentication
+  * Github pages를 이용한 deployment
+* 주요 기능 :
+  * Firebase를 활용한 Sign Up/로그인/로그아웃 기능
+  * 텍스트와 이미지 포스팅 기능
+  * 입력된 포스트를 Firebase DB에 저장하고 모든 유저의 포스트를 메인 화면에 노출
+  * 접속한 유저의 글에 '편집' 및 '삭제' 기능 제공
+  * 접속한 사용자의 username 은 프로필 화면에서 편집 가능
+* 추가/변경 부분 : (강의 내용 외)
+  * CSS 대신 SCSS 사용
+  * 로그인 시 username도 등록하도록 추가
+  * 프로필 이미지 추가/편집 기능 추가
+  * 포스트에 username, 작성일과 시간, 프로필 사진 노출
+  * Like 기능 추가
+  * Comment 기능 추가
 
-### `yarn start`
+<br />
+<br />
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## 2. 주요 페이지 및 컴포넌트 구성 <a id="structure"></a>
+| 경로      | 컴포넌트명 | 설명                                         |
+| --------- | ----------------- | -------------------------------------------- |
+| /         | Auth <br /> ㄴ AuthForm | 로그인 페이지 <br />  | 
+| /         | Home <br /> ㄴNavigation <br /> ㄴNweet <br /> ㄴNweetFactory | 전체 포스트를 노출하며, 개인 포스트 등록 및 수정이 가능한 메인 페이지    |      
+| /profile  | Profile   | 사용자 이름과 이미지 편집, 로그아웃이 가능한 프로필 페이지 |
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
 
-### `yarn test`
+<br />
+<br />
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 3. 기술 스택 <a id="techstack"></a>
+### 주요 기술 스택
+* DB & Server : `Firebase`
+* FE : 
+  * `React`
+  * `SCSS`
 
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+&nbsp;
+### 기타 주요 라이브러리
+* `react-router-dom` :
+  * React에서 라우팅을 도와주는 라이브러리 
+* `uuid` :
+  * 범용고유식별자 생성 라이브러리
+* `@fortawesome` :
+  * Font Awesome 아이콘 라이브러리
