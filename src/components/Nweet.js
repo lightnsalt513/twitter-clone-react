@@ -142,13 +142,13 @@ const Nweet = ({ nweetObj, userId }) => {
                             <button className={'nweet__item-menu-comments' + (isCommentsActive ? ' is-active' : '')} onClick={onCommentClick}><FontAwesomeIcon icon={faComment} />{commentsCount}<span className="blind">Comments</span></button>
                             <button className={'nweet__item-menu-likes' + (ownerLike ? ' is-active' : '')} onClick={onLikeClick}><FontAwesomeIcon icon={faThumbsUp} />{likesCount}<span className="blind">Likes</span></button>
                         </div>
+                        {isOwner && (
+                            <div className="nweet__item-btns">
+                                <button onClick={toggleEditing}><FontAwesomeIcon icon={faEdit} /><span className="blind">Edit</span></button>
+                                <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrashAlt} /><span className="blind">Delete</span></button>
+                            </div>
+                        )}
                     </div>
-                    {isOwner && (
-                        <div className="nweet__item-btns">
-                            <button onClick={toggleEditing}><FontAwesomeIcon icon={faEdit} /><span className="blind">Edit</span></button>
-                            <button onClick={onDeleteClick}><FontAwesomeIcon icon={faTrashAlt} /><span className="blind">Delete</span></button>
-                        </div>
-                    )}
                     <div className={'nweet__item-comments' + (isCommentsActive ? ' is-open' : '')}>
                         <CommentFactory nweetDbPath={`nweets/${nweetObj.id}`} userId={userId} />
                         {commentsInitialized && comments.map(comment => {
