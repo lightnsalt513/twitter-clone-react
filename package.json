@@ -45,8 +45,8 @@
       "last 1 safari version"
     ]
   },
+  "homepage": "https://lightnsalt513.github.io/twitter-clone-react",
   "devDependencies": {
-    "node-sass": "^4.14.1"
-  },
-  "homepage": "https://lightnsalt513.github.io/twitter-clone-react"
+    "sass": "^1.48.0"
+  }
 }
