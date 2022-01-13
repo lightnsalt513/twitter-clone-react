@@ -38,7 +38,7 @@
 | 경로      | 컴포넌트명 | 설명                                         |
 | --------- | ----------------- | -------------------------------------------- |
 | /         | Auth <br /> ㄴ AuthForm | 로그인 페이지 <br />  | 
-| /         | Home <br /> ㄴNavigation <br /> ㄴNweet <br /> ㄴNweetFactory | 전체 포스트를 노출하며, 개인 포스트 등록 및 수정이 가능한 메인 페이지    |      
+| /         | Home <br /> ㄴNavigation <br /> ㄴNweet <br /> ㄴNweetFactory <br /> ㄴComment <br /> ㄴCommentFactory | 전체 포스트를 노출하며, 개인 포스트 등록 및 수정이 가능한 메인 페이지. <br /> 각 포스트에 대한 코멘트 및 Like 기능 포함   |      
 | /profile  | Profile   | 사용자 이름과 이미지 편집, 로그아웃이 가능한 프로필 페이지 |
 
 
